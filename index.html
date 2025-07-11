@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alex's Dog Walking Scheduler 🐕</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One:wght@400&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <h1>🐕 Alex's Dog Walking Scheduler</h1>
+            <div class="current-date" id="currentDate"></div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Home Tab (Daily Schedule) -->
+            <section id="home-tab" class="tab-content active">
+                <div class="tab-header">
+                    <h2>📅 Today's Walks</h2>
+                    <button class="add-btn" onclick="showAddAppointmentModal()">➕ Add Walk</button>
+                </div>
+                <div class="schedule-container" id="todaysSchedule">
+                    <div class="empty-state">
+                        <div class="empty-icon">🐕</div>
+                        <p>No walks scheduled for today!</p>
+                        <button class="add-btn" onclick="showAddAppointmentModal()">Add Your First Walk</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Payments Tab -->
+            <section id="payments-tab" class="tab-content">
+                <div class="tab-header">
+                    <h2>💰 Payments</h2>
+                </div>
+                <div class="payment-summary">
+                    <div class="summary-card earnings">
+                        <div class="card-icon">💚</div>
+                        <div class="card-content">
+                            <h3>Total Earned This Week</h3>
+                            <div class="amount" id="weeklyEarnings">$0.00</div>
+                        </div>
+                    </div>
+                    <div class="summary-card outstanding">
+                        <div class="card-icon">⏰</div>
+                        <div class="card-content">
+                            <h3>Outstanding Payments</h3>
+                            <div class="amount" id="outstandingPayments">$0.00</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="payment-filters">
+                    <button class="filter-btn active" onclick="filterPayments('all')">All</button>
+                    <button class="filter-btn" onclick="filterPayments('paid')">✅ Paid</button>
+                    <button class="filter-btn" onclick="filterPayments('unpaid')">❌ Unpaid</button>
+                </div>
+                <div class="payments-list" id="paymentsList">
+                    <!-- Payment items will be populated here -->
+                </div>
+            </section>
+
+            <!-- Expenses Tab -->
+            <section id="expenses-tab" class="tab-content">
+                <div class="tab-header">
+                    <h2>📝 Expenses</h2>
+                    <button class="add-btn" onclick="showAddExpenseModal()">➕ Add Expense</button>
+                </div>
+                <div class="expense-categories">
+                    <div class="category-card">
+                        <div class="category-icon">🦴</div>
+                        <div class="category-name">Dog Treats</div>
+                        <div class="category-amount" id="treatExpenses">$0.00</div>
+                    </div>
+                    <div class="category-card">
+                        <div class="category-icon">🛍️</div>
+                        <div class="category-name">Poop Bags</div>
+                        <div class="category-amount" id="bagExpenses">$0.00</div>
+                    </div>
+                    <div class="category-card">
+                        <div class="category-icon">🎾</div>
+                        <div class="category-name">Equipment</div>
+                        <div class="category-amount" id="equipmentExpenses">$0.00</div>
+                    </div>
+                    <div class="category-card">
+                        <div class="category-icon">🚗</div>
+                        <div class="category-name">Transport</div>
+                        <div class="category-amount" id="transportExpenses">$0.00</div>
+                    </div>
+                </div>
+                <div class="expenses-list" id="expensesList">
+                    <!-- Expense items will be populated here -->
+                </div>
+            </section>
+
+            <!-- Earnings Tab -->
+            <section id="earnings-tab" class="tab-content">
+                <div class="tab-header">
+                    <h2>📊 Weekly Earnings</h2>
+                    <div class="week-navigation">
+                        <button class="nav-btn" onclick="changeWeek(-1)">← Previous</button>
+                        <span id="currentWeek">This Week</span>
+                        <button class="nav-btn" onclick="changeWeek(1)">Next →</button>
+                    </div>
+                </div>
+                <div class="earnings-summary">
+                    <div class="earnings-card total">
+                        <div class="card-icon">💰</div>
+                        <div class="card-content">
+                            <h3>Total Earnings</h3>
+                            <div class="amount green" id="totalEarnings">$0.00</div>
+                        </div>
+                    </div>
+                    <div class="earnings-card expenses">
+                        <div class="card-icon">📝</div>
+                        <div class="card-content">
+                            <h3>Total Expenses</h3>
+                            <div class="amount red" id="totalExpenses">$0.00</div>
+                        </div>
+                    </div>
+                    <div class="earnings-card profit">
+                        <div class="card-icon">🎉</div>
+                        <div class="card-content">
+                            <h3>Net Profit</h3>
+                            <div class="amount" id="netProfit">$0.00</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="earnings-chart">
+                    <canvas id="earningsChart" width="400" height="200"></canvas>
+                </div>
+                <button class="share-btn" onclick="shareEarnings()">📱 Share with Parents</button>
+            </section>
+        </main>
+
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav">
+            <button class="nav-item active" onclick="switchTab('home')">
+                <span class="nav-icon">🏠</span>
+                <span class="nav-label">Home</span>
+            </button>
+            <button class="nav-item" onclick="switchTab('payments')">
+                <span class="nav-icon">💰</span>
+                <span class="nav-label">Payments</span>
+            </button>
+            <button class="nav-item" onclick="switchTab('expenses')">
+                <span class="nav-icon">📝</span>
+                <span class="nav-label">Expenses</span>
+            </button>
+            <button class="nav-item" onclick="switchTab('earnings')">
+                <span class="nav-icon">📊</span>
+                <span class="nav-label">Earnings</span>
+            </button>
+        </nav>
+    </div>
+
+    <!-- Add Appointment Modal -->
+    <div id="addAppointmentModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>➕ Add New Walk</h2>
+                <button class="close-btn" onclick="closeModal('addAppointmentModal')">&times;</button>
+            </div>
+            <form id="appointmentForm">
+                <div class="form-group">
+                    <label for="dogName">🐕 Dog Name</label>
+                    <input type="text" id="dogName" required>
+                </div>
+                <div class="form-group">
+                    <label for="ownerName">👤 Owner Name</label>
+                    <input type="text" id="ownerName" required>
+                </div>
+                <div class="form-group">
+                    <label for="walkDate">📅 Walk Date</label>
+                    <input type="date" id="walkDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="walkTime">⏰ Walk Time</label>
+                    <input type="time" id="walkTime" required>
+                </div>
+                <div class="form-group">
+                    <label for="walkDuration">⏱️ Duration (minutes)</label>
+                    <input type="number" id="walkDuration" min="15" max="120" value="30" required>
+                </div>
+                <div class="form-group">
+                    <label for="walkRate">💵 Rate ($)</label>
+                    <input type="number" id="walkRate" min="5" max="50" value="15" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="ownerAddress">📍 Address</label>
+                    <input type="text" id="ownerAddress" required>
+                </div>
+                <div class="form-group">
+                    <label for="specialInstructions">📋 Special Instructions</label>
+                    <textarea id="specialInstructions" rows="3"></textarea>
+                </div>
+                <button type="submit" class="submit-btn">💾 Save Walk</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add Expense Modal -->
+    <div id="addExpenseModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>➕ Add Expense</h2>
+                <button class="close-btn" onclick="closeModal('addExpenseModal')">&times;</button>
+            </div>
+            <form id="expenseForm">
+                <div class="form-group">
+                    <label for="expenseAmount">💵 Amount ($)</label>
+                    <input type="number" id="expenseAmount" min="0.01" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="expenseCategory">📂 Category</label>
+                    <select id="expenseCategory" required>
+                        <option value="">Select Category</option>
+                        <option value="treats">🦴 Dog Treats</option>
+                        <option value="bags">🛍️ Poop Bags</option>
+                        <option value="equipment">🎾 Equipment</option>
+                        <option value="transport">🚗 Transport</option>
+                        <option value="other">📱 Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="expenseDescription">📝 Description</label>
+                    <input type="text" id="expenseDescription" required>
+                </div>
+                <div class="form-group">
+                    <label for="expenseDate">📅 Date</label>
+                    <input type="date" id="expenseDate" required>
+                </div>
+                <button type="submit" class="submit-btn">💾 Save Expense</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Success Toast -->
+    <div id="toast" class="toast">
+        <div class="toast-content">
+            <span class="toast-icon">🎉</span>
+            <span class="toast-message">Success!</span>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 

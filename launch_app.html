@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Launch Alex's Dog Walking Scheduler</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .launcher {
+            background: white;
+            color: #333;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            max-width: 500px;
+            width: 100%;
+        }
+        
+        h1 {
+            color: #4A90E2;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+        
+        .app-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+        
+        .launch-btn {
+            background: linear-gradient(135deg, #7ED321 0%, #5BA712 100%);
+            color: white;
+            border: none;
+            padding: 20px 40px;
+            border-radius: 25px;
+            font-size: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(126, 211, 33, 0.3);
+            text-decoration: none;
+            display: inline-block;
+            margin: 20px 0;
+        }
+        
+        .launch-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(126, 211, 33, 0.4);
+        }
+        
+        .instructions {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 20px;
+            text-align: left;
+        }
+        
+        .instructions h3 {
+            color: #4A90E2;
+            margin-bottom: 10px;
+        }
+        
+        .instructions ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .feature {
+            background: #f0f7ff;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .feature-icon {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+        
+        .status {
+            background: #d4f6cc;
+            color: #2b5d0b;
+            padding: 10px;
+            border-radius: 10px;
+            margin-top: 20px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="launcher">
+        <div class="app-icon">🐕</div>
+        <h1>Alex's Dog Walking Scheduler</h1>
+        <p>A complete business management app designed for a 10-year-old entrepreneur!</p>
+        
+        <a href="index.html" class="launch-btn">🚀 Launch Application</a>
+        
+        <div class="features">
+            <div class="feature">
+                <div class="feature-icon">📅</div>
+                <strong>Schedule Management</strong>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">💰</div>
+                <strong>Payment Tracking</strong>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">📝</div>
+                <strong>Expense Recording</strong>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">📊</div>
+                <strong>Financial Reports</strong>
+            </div>
+        </div>
+        
+        <div class="instructions">
+            <h3>🎯 How to Use:</h3>
+            <ul>
+                <li><strong>Home Tab:</strong> View today's dog walking schedule</li>
+                <li><strong>Payments Tab:</strong> Track which customers have paid</li>
+                <li><strong>Expenses Tab:</strong> Record business expenses</li>
+                <li><strong>Earnings Tab:</strong> See weekly profit and share with parents</li>
+            </ul>
+            
+            <h3>✨ Child-Friendly Features:</h3>
+            <ul>
+                <li>Large buttons and text for easy use</li>
+                <li>Bright colors and emoji indicators</li>
+                <li>Sample data included for demonstration</li>
+                <li>Works on mobile phones and tablets</li>
+            </ul>
+        </div>
+        
+        <div class="status">
+            ✅ Application Ready! Click "Launch Application" to start using the dog walking scheduler.
+        </div>
+    </div>
+    
+    <script>
+        // Auto-redirect after 10 seconds
+        setTimeout(() => {
+            if (confirm('Ready to launch the app?')) {
+                window.location.href = 'index.html';
+            }
+        }, 10000);
+    </script>
+</body>
+</html> 
