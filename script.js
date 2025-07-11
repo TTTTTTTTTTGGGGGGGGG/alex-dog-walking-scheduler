@@ -1,5 +1,4 @@
 // Dog Walking Scheduler App - JavaScript
-// Author: AI Assistant
 // Created for Alex's Dog Walking Business
 
 // =============================================================================
